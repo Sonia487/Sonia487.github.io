@@ -1,0 +1,92 @@
+/* style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-container {
+    display: none; /* 默認隱藏 */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-top: 2px solid #ccc;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1001; /* 確保表單層級高於背景 */
+    max-height: 80%;
+    overflow-y: auto;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+#close-form {
+    margin-top: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+}
+
+form table {
+    width: 100%;
+    margin: 10px 0;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* 背景暗化的樣式 */
+#overlay {
+    display: none; /* 默認隱藏 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
+    z-index: 1000; /* 確保背景層級在表單下方 */
+}
+
+/* Flexbox容器用於讓輸入框顯示在同一行 */
+.inline-inputs {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* 讓欄位之間有空隙 */
+}
+
+.inline-inputs input {
+    width: auto; /* 讓每個輸入框自動調整寬度 */
+}
+
+.inline-inputs input[type="number"] {
+    max-width: 70px; /* 限制數字輸入框的最大寬度 */
+}
+
+.title {
+    width: 20%;
+}
