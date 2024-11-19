@@ -11,6 +11,7 @@
 	<script defer src="bootstrap.min.js.map"></script>
 	<script defer src="js/javascript.js"></script>
 	<script defer src="js/html2canvas.js"></script>
+    <script defer src="js/dropdownmenu.js"></script>
 </head>
 
 <body>
@@ -29,6 +30,7 @@
   </figcaption>
 </figure>
 
+<div id="ticketnow">
 	<div class="container px-4 " style="width: 400px; font-family:DFKai-sb;">
 		<table class=" border-dark table-primary table-bordered table table-sm table-responsive-sm" style="padding-top: 50%;" id="myTable">
 			<tr class="col">
@@ -60,7 +62,7 @@
 			</tr>
 		</table>
 	</div>
-	
+</div>
   		<div class="container px-6 text-center " style="width: 400px;">
   		<div class="row justify-content-center gx-6">
     		<div class="col">
@@ -122,17 +124,15 @@
                 <tr>
                     <td class="title">類別</td>
                     <td>
-                        <select id="category" required>
+                        <select id="category" name="category" required>
                             <option value="">請選擇</option>
-                            <option value="category1">類別1</option>
-                            <option value="category2">類別2</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td class="title">業者</td>
                     <td>
-                        <select id="vendor" required>
+                        <select id="provider" name="provider" required>
                             <option value="">請選擇</option>
                         </select>
                     </td>
@@ -140,7 +140,7 @@
                 <tr>
                     <td class="title">行程</td>
                     <td>
-                        <select id="itinerary" required>
+                        <select id="tour" name="tour" required>
                             <option value="">請選擇</option>
                         </select>
                     </td>

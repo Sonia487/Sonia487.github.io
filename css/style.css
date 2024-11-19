@@ -25,6 +25,8 @@ button {
     z-index: 1001; /* 確保表單層級高於背景 */
     max-height: 80%;
     overflow-y: auto;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     animation: slideUp 0.5s ease-out;
 }
 
@@ -84,9 +86,13 @@ textarea {
 }
 
 .inline-inputs input[type="number"] {
-    max-width: 70px; /* 限制數字輸入框的最大寬度 */
+    max-width: 80px; /* 限制數字輸入框的最大寬度 */
 }
 
 .title {
     width: 20%;
+}
+
+#ticketnow {
+  transform: scale(0.8);
 }
