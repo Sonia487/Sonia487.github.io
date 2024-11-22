@@ -1,5 +1,5 @@
 // 初始化資料容器
-let providerCategoryData = {};
+let providerCategoryData = [];
 let tourData = {};
 let categories = [];
 
@@ -47,11 +47,11 @@ document.getElementById('provider').addEventListener('change', function() {
 
 // 載入業者資料
 function loadProviderData(category) {
-  fetch(`./js/ProviderCategory_${category}.json`)
+  fetch(`./js/ProviderCategory.json`)
     .then(response => response.json())
     .then(data => {
-      providerCategoryData[category] = data;
-      updateProviderSelect(data);
+      providerCategoryData = data[category];    
+      updateProviderSelect(data[category]);
     })
     .catch(error => console.error(`Error loading providers for ${category}:`, error));
 }
@@ -70,11 +70,11 @@ function updateProviderSelect(providers) {
 
 // 載入旅遊行程資料
 function loadTourData(providerId) {
-  fetch(`./js/Tour_${providerId}.json`)
+  fetch(`./js/Tour.json`)
     .then(response => response.json())
     .then(data => {
-      tourData[providerId] = data;
-      updateTourSelect(data);
+      tourData = data[providerId];
+      updateTourSelect(data[providerId]);
     })
     .catch(error => console.error(`Error loading tours for provider ${providerId}:`, error));
 }

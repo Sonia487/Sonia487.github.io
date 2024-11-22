@@ -8,10 +8,10 @@
 	<link rel="stylesheet" href="css\bootstrap.min.css">
 	<link rel="stylesheet" href="css\style.css">
 	<!--Local加入JS檔案，注意路徑寫法-->
-	<script defer src="bootstrap.min.js.map"></script>
 	<script defer src="js/javascript.js"></script>
 	<script defer src="js/html2canvas.js"></script>
     <script defer src="js/dropdownmenu.js"></script>
+    <script defer src="js/submit.js"></script>
 </head>
 
 <body>
@@ -38,27 +38,27 @@
 			</tr>
 			<tr class="border-2 border-top-0 border-bottom-0">
 				<td class="border-1" style="width: 35%;">旅客/電話</td>
-				<td class="border-1"></td>
+				<td class="border-1" id="client"></td>
 			</tr>
 			<tr class="border-2 border-top-0 border-bottom-0">
 				<td class="border-1">日期/行程/人數</td>
-				<td class="border-1"></td>
+				<td class="border-1" id="tour-detail"></td>
 			</tr>
 			<tr class="border-2 border-top-0 border-bottom-0">
 				<td class="border-1">報到/開始時間</td>
-				<td class="border-1"></td>
+				<td class="border-1" id="time"></td>
 			</tr>
 			<tr class="border-2 border-top-0 border-bottom-0">
 				<td class="border-1">行程業者</td>
-				<td class="border-1"></td>
+				<td class="border-1" id="t-provider"></td>
 			</tr>
 			<tr class="border-2 border-top-0 border-bottom-0">
 				<td class="border-1">報到地點</td>
-				<td class="border-1"></td>
+				<td class="border-1" id="checkin-add"></td>
 			</tr>
 			<tr class="border-2 border-top-0">
 				<td class="border-1">備註</td>
-				<td class="border-1" style="flex: 1;"></td>
+				<td class="border-1" style="flex: 1;" id="ps"></td>
 			</tr>
 		</table>
 	</div>
@@ -202,11 +202,26 @@
             </table>
         </form>
 		<div class="text-center">
-		<button type="submit">提交</button>
+		<button type="submit" onclick="submitForm()">提交</button>
         <button id="close-form">關閉</button>
 		</div>
     </div>
 
+    <table border="1">
+        <thead>
+            <tr>
+                <th>旅客/電話</th>
+                <th>日期/行程/人數</th>
+                <th>報到/開始時間</th>
+                <th>行程業者</th>
+                <th>報到地點</th>
+                <th>備註</th>
+            </tr>
+        </thead>
+        <tbody id="data-table">
+            <!-- 表格資料會填充在這裡 -->
+        </tbody>
+    </table>
 
 </body>
 </html>
