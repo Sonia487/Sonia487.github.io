@@ -12,6 +12,7 @@
 	<script defer src="js/html2canvas.js"></script>
     <script defer src="js/dropdownmenu.js"></script>
     <script defer src="js/submit.js"></script>
+    <script defer src="js/submit2ticket.js"></script>
 </head>
 
 <body>
@@ -156,11 +157,11 @@
                 </tr>
                 <tr>
                     <td class="title">報到時間</td>
-                    <td><input type="number" id="checkin-time" min="0" placeholder="分鐘" required></td>
+                    <td><input type="number" id="checkin-time" min="0" placeholder="分鐘"></td>
                 </tr>
                 <tr>
                     <td class="title">團號</td>
-                    <td><input type="text" id="group-number" required></td>
+                    <td><input type="text" id="group-number"></td>
                 </tr>
                 <tr>
                     <td class="title">旅客</td>
@@ -202,7 +203,7 @@
             </table>
         </form>
 		<div class="text-center">
-		<button type="submit" onclick="submitForm()">提交</button>
+		<button type="submit" onclick="submit2ticket()">提交</button>
         <button id="close-form">關閉</button>
 		</div>
     </div>
@@ -222,6 +223,9 @@
             <!-- 表格資料會填充在這裡 -->
         </tbody>
     </table>
+
+    <div id="show"></div>
+    </script>
 
 </body>
 </html>
