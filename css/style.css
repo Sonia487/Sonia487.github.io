@@ -96,3 +96,7 @@ textarea {
 #ticketnow {
   transform: scale(0.8);
 }
+
+.checkinadd {
+    display: block;
+  }

@@ -157,15 +157,15 @@
                 </tr>
                 <tr>
                     <td class="title">報到時間</td>
-                    <td><input type="number" id="checkin-time" min="0" placeholder="分鐘"></td>
+                    <td><input type="number" id="checkin-time" min="0" placeholder="分鐘 / 時間有一格沒輸入就不會顯示"></td>
                 </tr>
                 <tr>
                     <td class="title">團號</td>
-                    <td><input type="text" id="group-number"></td>
+                    <td><input type="text" id="group-number" placeholder="非必要"></td>
                 </tr>
                 <tr>
                     <td class="title">旅客</td>
-                    <td><input type="text" id="name-phone" placeholder="姓名+電話" required></td>
+                    <td><input type="text" id="name-phone" placeholder="姓名+電話 (必填)" required></td>
                 </tr>
                 <tr>
                     <td class="title">人數</td>
@@ -207,25 +207,6 @@
         <button id="close-form">關閉</button>
 		</div>
     </div>
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>旅客/電話</th>
-                <th>日期/行程/人數</th>
-                <th>報到/開始時間</th>
-                <th>行程業者</th>
-                <th>報到地點</th>
-                <th>備註</th>
-            </tr>
-        </thead>
-        <tbody id="data-table">
-            <!-- 表格資料會填充在這裡 -->
-        </tbody>
-    </table>
-
-    <div id="show"></div>
-    </script>
 
 </body>
 </html>

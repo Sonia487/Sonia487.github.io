@@ -3,10 +3,10 @@
 // 提交表單的處理函數
 function submit2ticket() {
     // 取得表單資料
-    const date = document.getElementById('date').value;
+    const dateInput = document.getElementById('date').value;
     const category = document.getElementById('category').value;
-    const provider = document.getElementById('provider').value;
-    const tour = document.getElementById('tour').value;
+    const providerid = document.getElementById('provider').value;
+    const tourid = document.getElementById('tour').value;
     const startHourInput = parseInt(document.getElementById('start-hour').value);
     const startMinuteInput = parseInt(document.getElementById('start-minute').value);
     const checkinTimeInput = parseInt(document.getElementById('checkin-time').value);
@@ -36,13 +36,14 @@ function submit2ticket() {
     }
 
     // 顯示報到和開始時間的函數
+    function showTime() {
         const startHour = parseInt(startHourInput, 10);
         const startMinute = parseInt(startMinuteInput, 10);
         const checkinTime = parseInt(checkinTimeInput, 10);
 
         if (isNaN(startHour) || isNaN(startMinute) || isNaN(checkinTime)) {
             // 如果任何輸入欄位的值無效或為空，則不顯示任何內容
-            document.getElementById("show").innerText = '';
+            ttime.innerText = '';
             return;
         }
 
@@ -57,8 +58,10 @@ function submit2ticket() {
         }
 
         // 格式化時間顯示
-        const formattedCheckinTime = formatTime(checkinHour, checkinMinute);
-        const formattedStartTime = formatTime(startHour, startMinute);
+        formattedCheckinTime = formatTime(checkinHour, checkinMinute);
+        formattedStartTime = formatTime(startHour, startMinute);
+    }
+    showTime();
 
 
     // 顯示人數的函數
@@ -83,17 +86,70 @@ function submit2ticket() {
         // 如果有有效的數量，組合顯示；否則不顯示
         if (peopleCount.length > 0) {
             message = `${peopleCount.join("")}`;
+        }     
+        
+        // 根據選擇的 tourid 顯示行程名稱
+        function updateTourName() {
+            // 查找 tourData 中對應的行程
+            tour = tourData.find(t => t.id === tourid);
         }
 
+        // 根據選擇的 providerid 顯示行程名稱
+        function updateProviderName() {
+            // 查找 providerCategoryData 中對應的行程
+            provider = providerCategoryData.find(p => p.id === providerid);
+        }
+        
+        updateTourName()
+        updateProviderName()
+        
+        // 格式化日期
+        function changeDate() {
+            if (dateInput === "") {
+                formatted = "";
+            }else {
+            // 獲取選擇的日期，這是以 yyyy-mm-dd 格式的字符串
+            const selectedDate = dateInput;
+            
+            // 使用 Date 物件將選擇的日期字符串轉換成日期物件
+            const dateObj = new Date(selectedDate);
+            
+            // 格式化日期為 mm/dd 格式
+            const month = dateObj.getMonth() + 1;  // getMonth() 返回 0-11，需要加 1
+            const day = dateObj.getDate();  // getDate() 返回 1-31
+            
+            // 生成所需的格式
+            formatted = `${month}/${day}`;
+        };
+        };
+
+        changeDate()
+        
+        // 載入業者詳細資料
+        let providerDetailsData = {};
+        fetch('./js/ProviderDetail.json')
+            .then(response => response.json())
+            .then(data => {
+            providerDetailsData = data[providerid];
+            // 顯示行程業者在票券上
+            tprovider.textContent = `${providerDetailsData[0]["業者"]} ${providerDetailsData[1]["電話"]}`;
+            // 顯示報到地點在票券上
+            checkinadd.innerHTML = `${providerDetailsData[2]["櫃台"]}<br>${providerDetailsData[3]["地址"]}`;
+        })
+        .catch(error => console.error('Error loading categories:', error));
+        
+        
+        
+          
     //填入票券表格
     // 旅客/電話
     client.textContent = namePhone;
     // 日期/行程/人數 tour會顯示行程id，要再修改
-    tourdetail.textContent = `${date} ${tour} ${message}`;
+    tourdetail.textContent = `${formatted} ${tour.name} ${message}`;
     // 報到/開始時間
     ttime.textContent = `${formattedCheckinTime}報到/${formattedStartTime}開始`;
     // 行程業者
-    tprovider.textContent = provider;
+    //tprovider.textContent = `${providerDetailsData[0]["業者"]} ${providerDetailsData[1]["電話"]}`;
     // 報到地點
     //const checkinadd.textContent = document.getElementById('checkin-add');
     // 備註
