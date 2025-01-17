@@ -13,6 +13,8 @@
     <script defer src="js/dropdownmenu.js"></script>
     <script defer src="js/submit.js"></script>
     <script defer src="js/submit2ticket.js"></script>
+    <script defer type="module" src="js/copy_pic.js"></script>
+    <script defer src="js/canvas2image.js"></script>
 </head>
 
 <body>
@@ -31,14 +33,15 @@
   </figcaption>
 </figure>
 
-<div id="ticketnow">
-	<div class="container px-4 " style="width: 400px; font-family:DFKai-sb;">
+<div>
+	<div class="container px-4 " style="width: 450px; font-family:DFKai-sb;">
 		<table class=" border-dark table-primary table-bordered table table-sm table-responsive-sm" style="padding-top: 50%;" id="myTable">
 			<tr class="col">
-				<td class="border-2 text-center " colspan="2">澎湖之美旅行社-電子票券</td>
+				<td class="border-2 text-center" colspan="2" style="font-size: large;">澎湖之美旅行社-電子票券</td>
 			</tr>
 			<tr class="border-2 border-top-0 border-bottom-0">
-				<td class="border-1" style="width: 35%;">旅客/電話</td>
+                <!--這個 style="width: 35%;" 可以調整直線位置-->
+				<td class="border-1" style="width: 32%;">旅客/電話</td>
 				<td class="border-1" id="client"></td>
 			</tr>
 			<tr class="border-2 border-top-0 border-bottom-0">
@@ -68,7 +71,7 @@
   		<div class="row justify-content-center gx-6">
     		<div class="col">
     			<div class="p-2">
-      			<button type="button" class="btn btn-primary">複製圖片</button>
+      			<button type="button" class="btn btn-primary" id="copy_pic">複製圖片</button>
       		</div>
     		</div>
     		<div class="col">
@@ -78,7 +81,7 @@
     		</div>
     		<div class="col">
     			<div class="p-2">
-      			<button type="button" class="btn btn-primary">分享到~</button>
+      			<button type="button" class="btn btn-primary" id="share_pic">分享到~</button>
       		</div>
     		</div>
   		</div>

@@ -67,27 +67,58 @@ function submit2ticket() {
     // 顯示人數的函數
         let message = "";
         let peopleCount = [];
-
         // 判斷是否有輸入大人數量，若有則加入
         if (adults !== "") {
             peopleCount.push(`${adults}大`);
         }
-
         // 判斷是否有輸入小孩數量，若有則加入
         if (children !== "") {
             peopleCount.push(`${children}小`);
         }
-
         // 判斷是否有輸入嬰兒數量，若有則加入
         if (infants !== "") {
             peopleCount.push(`${infants}嬰`);
         }
-
         // 如果有有效的數量，組合顯示；否則不顯示
         if (peopleCount.length > 0) {
             message = `${peopleCount.join("")}`;
-        }     
+        }
+
+    // 顯示活動人數的函數
+    let message_activities = "";
+    let peopleCount_activities = [];
+
+    // 判斷是否有輸入浮潛數量，若有則加入
+    if (snorkel !== "") {
+        peopleCount_activities.push(`浮潛${snorkel}位`);
+    }
+    // 判斷是否有輸入獨木舟數量，若有則加入
+    if (canoe !== "") {
+        peopleCount_activities.push(`獨木舟${canoe}位`);
+    }
+    // 判斷是否有輸入自由行數量，若有則加入
+    if (freestyle !== "") {
+        peopleCount_activities.push(`自由行${freestyle}位`);
+    }
+    // 判斷是否有輸入機車數量，若有則加入
+    if (motorbike !== "") {
+        peopleCount_activities.push(`機車${motorbike}台`);
+    }
+    // 判斷是否有輸入自由行數量，若有則加入
+    if (bus !== "") {
+        peopleCount_activities.push(`巴士${bus}位`);
+    }
+    // 判斷是否有輸入備註數量，若有則加入
+    if (notes !== "") {
+        peopleCount_activities.push(`${notes}`);
+    }
+    // 如果有有效的數量，組合顯示；否則不顯示
+    if (peopleCount_activities.length > 0) {
+        message_activities = `${peopleCount_activities.join("<br>")}`;
+    }
         
+        
+
         // 根據選擇的 tourid 顯示行程名稱
         function updateTourName() {
             // 查找 tourData 中對應的行程
@@ -98,11 +129,11 @@ function submit2ticket() {
         function updateProviderName() {
             // 查找 providerCategoryData 中對應的行程
             provider = providerCategoryData.find(p => p.id === providerid);
-        }
-        
+        }        
         updateTourName()
         updateProviderName()
         
+
         // 格式化日期
         function changeDate() {
             if (dateInput === "") {
@@ -125,6 +156,7 @@ function submit2ticket() {
 
         changeDate()
         
+
         // 載入業者詳細資料
         let providerDetailsData = {};
         fetch('./js/ProviderDetail.json')
@@ -153,5 +185,10 @@ function submit2ticket() {
     // 報到地點
     //const checkinadd.textContent = document.getElementById('checkin-add');
     // 備註
-    ps.textContent = notes;
+    ps.innerHTML = `${message_activities}`;
+
+    document.getElementById('form-container').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+   
 }
+
