@@ -1,18 +1,3 @@
-//convert table to image            
-function convertToImage() {
-var resultDiv = document.getElementById("result");
-html2canvas(document.getElementById("myTable"), {
-    onrendered: function(canvas) {
-        var img = canvas.toDataURL("image/png");
-        result.innerHTML = '<a download="test.jpeg" href="'+img+'">test</a>';
-        }
-});
-}        
-//click event
-var convertBtn = document.getElementById("convert");
-convertBtn.addEventListener('click', convertToImage);
-
-
 //AI寫的功能
 // script.js
 

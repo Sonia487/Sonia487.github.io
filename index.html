@@ -14,7 +14,7 @@
     <script defer src="js/submit.js"></script>
     <script defer src="js/submit2ticket.js"></script>
     <script defer type="module" src="js/copy_pic.js"></script>
-    <script defer src="js/canvas2image.js"></script>
+    <script defer src="js/dom-to-image.js"></script>
 </head>
 
 <body>
@@ -33,9 +33,10 @@
   </figcaption>
 </figure>
 
-<div>
+<div id="myTable">
+    <img id="logo" src="src\logo.png" alt="Logo">
 	<div class="container px-4 " style="width: 450px; font-family:DFKai-sb;">
-		<table class=" border-dark table-primary table-bordered table table-sm table-responsive-sm" style="padding-top: 50%;" id="myTable">
+		<table class=" border-dark table-bordered table table-sm table-responsive-sm" style="background-color: #fcf98e; padding-top: 50%; scale: 1;">
 			<tr class="col">
 				<td class="border-2 text-center" colspan="2" style="font-size: large;">澎湖之美旅行社-電子票券</td>
 			</tr>
@@ -67,6 +68,8 @@
 		</table>
 	</div>
 </div>
+
+
   		<div class="container px-6 text-center " style="width: 400px;">
   		<div class="row justify-content-center gx-6">
     		<div class="col">
@@ -76,7 +79,7 @@
     		</div>
     		<div class="col">
     			<div class="p-2">
-      			<button type="button" class="btn btn-primary" id="convert">下載圖片</button>
+      			<button type="button" class="btn btn-primary" id="download_pic">下載圖片</button>
       		</div>
     		</div>
     		<div class="col">
