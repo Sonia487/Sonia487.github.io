@@ -4,7 +4,7 @@ let tourData = {};
 let categories = [];
 
 // 1. 載入所有類別資料
-fetch('/Sonia487.github.io/js/Category.json')
+fetch('https://sonia487.github.io/js/Category.json')
   .then(response => response.json())
   .then(data => {
     categories = data.categories;
