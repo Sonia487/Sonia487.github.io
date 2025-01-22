@@ -258,34 +258,50 @@ const colorMapping = {
 // 取得圖片元素
 const logo = document.getElementById("logo");
 
-let isDragging = false; // 是否正在拖曳
-let offsetX = 0; // 滑鼠相對圖片的水平偏移量
-let offsetY = 0; // 滑鼠相對圖片的垂直偏移量
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
 
-// 按下滑鼠時開始拖曳
-logo.addEventListener("mousedown", (event) => {
+// 通用的拖曳開始事件處理
+function startDrag(event) {
   isDragging = true;
-  offsetX = event.clientX - logo.offsetLeft;
-  offsetY = event.clientY - logo.offsetTop;
-  logo.style.cursor = "grabbing"; // 拖曳時改變游標樣式
-});
+  const clientX = event.type === "mousedown" ? event.clientX : event.touches[0].clientX;
+  const clientY = event.type === "mousedown" ? event.clientY : event.touches[0].clientY;
 
-// 移動滑鼠時更新圖片位置
-document.addEventListener("mousemove", (event) => {
+  offsetX = clientX - logo.offsetLeft;
+  offsetY = clientY - logo.offsetTop;
+
+  logo.style.cursor = "grabbing";
+}
+
+// 通用的拖曳移動事件處理
+function dragMove(event) {
   if (isDragging) {
-    const newX = event.clientX - offsetX;
-    const newY = event.clientY - offsetY;
+    const clientX = event.type === "mousemove" ? event.clientX : event.touches[0].clientX;
+    const clientY = event.type === "mousemove" ? event.clientY : event.touches[0].clientY;
 
-    // 更新圖片位置
+    const newX = clientX - offsetX;
+    const newY = clientY - offsetY;
+
     logo.style.left = `${newX}px`;
     logo.style.top = `${newY}px`;
   }
-});
+}
 
-// 放開滑鼠時停止拖曳
-document.addEventListener("mouseup", () => {
+// 通用的拖曳結束事件處理
+function stopDrag() {
   if (isDragging) {
     isDragging = false;
-    logo.style.cursor = "grab"; // 停止拖曳時還原游標樣式
+    logo.style.cursor = "grab";
   }
-});
+}
+
+// 電腦事件
+logo.addEventListener("mousedown", startDrag);
+document.addEventListener("mousemove", dragMove);
+document.addEventListener("mouseup", stopDrag);
+
+// 手機事件
+logo.addEventListener("touchstart", startDrag);
+document.addEventListener("touchmove", dragMove);
+document.addEventListener("touchend", stopDrag);

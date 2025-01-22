@@ -132,7 +132,7 @@ textarea {
     padding: 0 !important; /* 去除表格內邊距 */
     border-collapse: collapse; /* 合併表格邊框 */
     width: 100%; /* 讓表格填滿容器 */
-    
+    font-family: 'DFKai-sb', Courier, monospace;
   }
 
   body, html {
