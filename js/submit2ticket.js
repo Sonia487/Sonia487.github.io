@@ -243,13 +243,13 @@ const colorMapping = {
     };
   
   // 取得 select 元素和表格元素
-  const category = document.getElementById("category");
+ 
   const myTable = document.getElementById("myTable");
   
   // 綁定事件監聽器，當 select 的值改變時觸發
   category.addEventListener("change", function () {
     // 根據 select 的值獲取對應的顏色
-    const selectedValue = category.value;
+    const selectedValue = category;
     const selectedColor = colorMapping[selectedValue] || "#ffffff"; // 預設為白色
     myTable.style.backgroundColor = selectedColor;
   });
