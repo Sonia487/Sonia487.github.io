@@ -3,7 +3,7 @@
 function submit2ticket() {
     // 取得表單資料
     const dateInput = document.getElementById('date').value;
-    const category = document.getElementById('category').value;
+    //const category = document.getElementById('category').value;
     const providerid = document.getElementById('provider').value;
     const tourid = document.getElementById('tour').value;
     const startHourInput = parseInt(document.getElementById('start-hour').value);
@@ -243,15 +243,16 @@ const colorMapping = {
     };
   
   // 取得 select 元素和表格元素
- 
+  const categoryarea = document.getElementById("category");
   const myTable = document.getElementById("myTable");
   
   // 綁定事件監聽器，當 select 的值改變時觸發
-  category.addEventListener("change", function () {
+  categoryarea.addEventListener("change", function () {
     // 根據 select 的值獲取對應的顏色
-    const selectedValue = category;
-    const selectedColor = colorMapping[selectedValue] || "#ffffff"; // 預設為白色
-    myTable.style.backgroundColor = selectedColor;
+    const selectedValue = categoryarea.value;
+    const selectedColor = colorMapping[selectedValue] || "#fffaaf"; // 預設為白色
+    myTable.style.backgroundColor = selectedColor; 
+       
   });
 
 // 【拖曳LOGO功能】
