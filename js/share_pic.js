@@ -1,7 +1,33 @@
 document.getElementById("share_pic").addEventListener("click", function () {
     let target = document.getElementById("myTable"); // 你的 table 容器
 
-    domtoimage.toBlob(target).then(function (blob) {
+    // 設定生成圖片時的倍率（放大兩倍）
+const scale = 4;
+
+// 截圖並放入剪貼簿
+async function captureAndCopyToClipboard() {
+  try {
+    // 取得目標元素的實際寬高
+    const nodeWidth = target.offsetWidth;
+    const nodeHeight = target.offsetHeight;
+
+    // 設定 dom-to-image 的選項
+    const options = {
+      width: nodeWidth * scale, // 放大寬度
+      height: nodeHeight * scale, // 放大高度
+      style: {
+        transform: `scale(${scale})`, // 縮放比例
+        transformOrigin: 'top left', // 縮放基準
+        width: `${nodeWidth}px`, // 原始寬度
+        height: `${nodeHeight}px`, // 原始高度
+        margin: 0, // 去除外邊距
+        padding: 0, // 去除內邊距
+        boxSizing: 'border-box' // 確保寬度計算包含邊框與內邊距
+      },
+      quality: 1, // 確保最高品質
+    };
+
+    domtoimage.toBlob(target, options).then(function (blob) {
         let file = new File([blob], "ticket.png", { type: "image/png" });
 
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
