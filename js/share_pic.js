@@ -4,9 +4,7 @@ document.getElementById("share_pic").addEventListener("click", function () {
     // 設定生成圖片時的倍率（放大兩倍）
 const scale = 4;
 
-// 截圖並放入剪貼簿
-async function captureAndCopyToClipboard() {
-  try {
+
     // 取得目標元素的實際寬高
     const nodeWidth = target.offsetWidth;
     const nodeHeight = target.offsetHeight;
