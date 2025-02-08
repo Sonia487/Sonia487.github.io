@@ -306,3 +306,8 @@ document.addEventListener("mouseup", stopDrag);
 logo.addEventListener("touchstart", startDrag);
 document.addEventListener("touchmove", dragMove);
 document.addEventListener("touchend", stopDrag);
+
+//前一天通知開船時間 勾選
+document.getElementById("wait-info").addEventListener("change", function() {
+    document.getElementById("info-text").style.display = this.checked ? "inline" : "none";
+});

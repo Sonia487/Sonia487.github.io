@@ -151,4 +151,11 @@ textarea {
     font-weight: bold; /* 加粗字體 */
     text-align: left; /* 文字居中對齊 */
   }
+
+  /*暫定開船時間文字*/
+  #info-text {
+    display: none; /* 初始隐藏 */
+    margin-left: 10px;
+    color: blue;
+}
   
