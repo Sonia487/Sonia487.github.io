@@ -60,9 +60,22 @@ function submit2ticket() {
         formattedCheckinTime = formatTime(checkinHour, checkinMinute);
         formattedStartTime = formatTime(startHour, startMinute);
 
-        // 報到/開始時間
-    ttime.textContent = `  ${formattedCheckinTime}報到 / ${formattedStartTime}開始`;
-    }
+        // 報到/開始時間 如果勾選前一天通知，則另外顯示別的文字
+        const waitInfoCheckbox = document.getElementById("wait-info");
+        // 根據 checkbox 狀態更新 ttime 顯示
+           if (waitInfoCheckbox.checked) {
+            ttime.innerHTML = "暫定08:00開船<br>出發前一日通知開船時間";
+            } else {
+               ttime.textContent = `${formattedCheckinTime}報到 / ${formattedStartTime}開始`;
+            }    
+        
+        //如果勾選不顯示，則不顯示時間文字，改以--代替
+         const noshowCheckbox = document.getElementById("no-show");
+        // 根據 checkbox 狀態更新 ttime 顯示
+           if (noshowCheckbox.checked) {
+            ttime.innerHTML = "--"; }  
+            
+        }
     showTime();
 
 
@@ -221,11 +234,12 @@ if (peopleCount_activities.length > 0) {
     //const checkinadd.textContent = document.getElementById('checkin-add');
     // 備註
     ps.innerHTML = `${message_activities}`;
+        
+        //關閉表單和背景
+        document.getElementById('form-container').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
 
-    document.getElementById('form-container').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
-     
-}
+} //submit2ticket 結束
 
 // 【自動改變票券顏色功能】
 // 顏色映射表
@@ -307,7 +321,5 @@ logo.addEventListener("touchstart", startDrag);
 document.addEventListener("touchmove", dragMove);
 document.addEventListener("touchend", stopDrag);
 
-//前一天通知開船時間 勾選
-document.getElementById("wait-info").addEventListener("change", function() {
-    document.getElementById("info-text").style.display = this.checked ? "inline" : "none";
-});
+
+
