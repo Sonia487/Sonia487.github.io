@@ -40,12 +40,6 @@ function submit2ticket() {
         const startMinute = parseInt(startMinuteInput, 10);
         const checkinTime = parseInt(checkinTimeInput, 10);
 
-        if (isNaN(startHour) || isNaN(startMinute) || isNaN(checkinTime)) {
-            // 如果任何輸入欄位的值無效或為空，則不顯示任何內容
-            ttime.innerText = '';
-            return;
-        }
-
         // 計算報到時間
         let checkinHour = startHour;
         let checkinMinute = startMinute - checkinTime;
@@ -75,7 +69,7 @@ function submit2ticket() {
            if (noshowCheckbox.checked) {
             ttime.innerHTML = "--"; }  
             
-        }
+        } //showTime結束
     showTime();
 
 
