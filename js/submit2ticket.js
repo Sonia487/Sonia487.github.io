@@ -50,7 +50,19 @@ function submit2ticket() {
             checkinMinute += 60;
         }
 
-        // 格式化時間顯示
+        // 載入業者詳細資料
+        let providerDetailsData = {};
+        fetch('./js/ProviderDetail.json')
+            .then(response => response.json())
+            .then(data => {
+            providerDetailsData = data[providerid];
+            // 顯示行程業者在票券上
+            tprovider.textContent = `${providerDetailsData[0]["業者"]} ${providerDetailsData[1]["電話"]}`;
+            // 顯示報到地點在票券上
+            checkinadd.innerHTML = `${providerDetailsData[2]["櫃台"]}<br>${providerDetailsData[3]["地址"]}`;
+            
+            
+            // 格式化時間顯示
         formattedCheckinTime = formatTime(checkinHour, checkinMinute);
         formattedStartTime = formatTime(startHour, startMinute);
 
@@ -60,7 +72,7 @@ function submit2ticket() {
            if (waitInfoCheckbox.checked) {
             ttime.innerHTML = "暫定08:00開船<br>出發前一日通知開船時間";
             } else {
-               ttime.textContent = `${formattedCheckinTime}報到 / ${formattedStartTime}開始`;
+               ttime.textContent = `${formattedCheckinTime}報到 / ${formattedStartTime} ${providerDetailsData[4]["開始方式"]}`;
             }    
         
         //如果勾選不顯示，則不顯示時間文字，改以--代替
@@ -68,8 +80,13 @@ function submit2ticket() {
         // 根據 checkbox 狀態更新 ttime 顯示
            if (noshowCheckbox.checked) {
             ttime.innerHTML = "--"; }  
+
+        })
+        .catch(error => console.error('Error loading categories:', error));
+
+
             
-        } //showTime結束
+        }
     showTime();
 
 
@@ -198,23 +215,6 @@ if (peopleCount_activities.length > 0) {
         };
 
         changeDate()
-        
-
-        // 載入業者詳細資料
-        let providerDetailsData = {};
-        fetch('./js/ProviderDetail.json')
-            .then(response => response.json())
-            .then(data => {
-            providerDetailsData = data[providerid];
-            // 顯示行程業者在票券上
-            tprovider.textContent = `${providerDetailsData[0]["業者"]} ${providerDetailsData[1]["電話"]}`;
-            // 顯示報到地點在票券上
-            checkinadd.innerHTML = `${providerDetailsData[2]["櫃台"]}<br>${providerDetailsData[3]["地址"]}`;
-        })
-        .catch(error => console.error('Error loading categories:', error));
-        
-        
-        
           
     //填入票券表格
     // 旅客/電話
