@@ -83,9 +83,7 @@ function submit2ticket() {
 
         })
         .catch(error => console.error('Error loading categories:', error));
-
-
-            
+           
         }
     showTime();
 
@@ -94,15 +92,15 @@ function submit2ticket() {
         let message = "";
         let peopleCount = [];
         // 判斷是否有輸入大人數量，若有則加入
-        if (adults !== "") {
+        if (adults !== "" && adults !== "0") {
             peopleCount.push(`${adults}大`);
         }
         // 判斷是否有輸入小孩數量，若有則加入
-        if (children !== "") {
+        if (children !== "" && children !== "0") {
             peopleCount.push(`${children}小`);
         }
         // 判斷是否有輸入嬰兒數量，若有則加入
-        if (infants !== "") {
+        if (infants !== "" && infants !== "0") {
             peopleCount.push(`${infants}嬰`);
         }
         // 如果有有效的數量，組合顯示；否則不顯示
@@ -115,32 +113,32 @@ let message_activities = "";
 let peopleCount_activities = [];
 
 // 判斷是否有輸入浮潛數量，若有則加入
-if (snorkel !== "") {
+if (snorkel !== "" && snorkel !== "0") {
     peopleCount_activities.push(`浮潛${snorkel}位`);
 }
 
 // 判斷是否有輸入獨木舟數量，若有則加入
-if (canoe !== "") {
+if (canoe !== "" && canoe !== "0") {
     peopleCount_activities.push(`獨木舟${canoe}位`);
 }
 
 // 判斷是否有輸入自由行數量，若有則加入
-if (freestyle !== "") {
+if (freestyle !== "" && freestyle !== "0") {
     peopleCount_activities.push(`自由行${freestyle}位`);
 }
 
 // 判斷是否有輸入機車數量，若有則加入
-if (motorbike !== "") {
+if (motorbike !== "" && motorbike !== "0") {
     peopleCount_activities.push(`機車${motorbike}台`);
 }
 
 // 判斷是否有輸入巴士數量，若有則加入
-if (bus !== "") {
+if (bus !== "" && bus !== "0") {
     peopleCount_activities.push(`巴士${bus}位`);
 }
 
 // 判斷是否有輸入備註，若有則加入
-if (notes !== "") {
+if (notes !== "" && notes !== "0") {
     // 將文字中的換行符號 (\n) 替換成 <br>
     const formattedNotes = notes.replace(/\n/g, "<br>");
     peopleCount_activities.push(`${formattedNotes}`);
