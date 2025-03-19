@@ -17,6 +17,10 @@
     <script defer type="module" src="js/copy_pic.js"></script>
     <script defer src="js/dom-to-image.js"></script>
     <script defer src="js/share_pic.js"></script>
+    <!--解析excel的工具-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script defer type="module" src="js/batchProcess.js"></script>
 </head>
 
 <body>
@@ -37,7 +41,7 @@
 
 <div id="myTable">
     <img id="logo" src="https://sonia487.github.io/src/Logo.png" alt="Logo">
-	<div class="container px-4 " style="width: 450px; font-family:DFKai-sb;">
+	<div class="container px-4 " style="width: 400px; font-family:DFKai-sb;">
 		<table class=" border-dark table-bordered table table-sm table-responsive-sm" style="padding-top: 50%; scale: 1; width: 100%;">
 			<colgroup>
             <col span="1" class="title" style="width: 27%;"/>
@@ -104,24 +108,19 @@
       			</div>
     		</div>
     		<div class="col">
-    				<div class="p-2">
-      			<button type="button" class="btn btn-primary" id="manufact">批量製作</button>
+    			<div class="">
+      			<button type="button" class="btn btn-primary" id="batchGenerate">批量製作</br>(先選擇檔案)</button>
       			</div>
     		</div>
     		<div class="col">
-    			<div class="p-2">
-      			<button type="button" class="btn btn-primary">清空資料</button>
-      			</div>
+    			<div class="">
+                <input type="file" id="excelUpload" accept=".xlsx, .xls, .xlsm" class="w-100">
+            </div>
     		</div>
   		</div>
   		</div>
 
   	</div>	
-
-	<!--測試寫法-->
-	<div id="result">
-         <!-- Result will appear be here -->
-	</div>
 	
 	<!-- 暗化背景，ID是overlay-->
 	<div id="overlay"></div>

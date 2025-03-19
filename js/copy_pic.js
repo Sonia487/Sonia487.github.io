@@ -41,7 +41,7 @@ async function captureAndCopyToClipboard() {
     // 將圖片寫入剪貼簿
     await navigator.clipboard.write([clipboardItem]);
 
-    alert('圖片已成功複製到剪貼簿！');
+    //alert('圖片已成功複製到剪貼簿！');
   } catch (error) {
     console.error('無法複製圖片到剪貼簿：', error);
   }
