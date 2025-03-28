@@ -72,7 +72,7 @@ function submit2ticket() {
            if (waitInfoCheckbox.checked) {
             ttime.innerHTML = "暫定08:00開船<br>出發前一日通知開船時間";
             } else {
-               ttime.textContent = `${formattedCheckinTime}報到 / ${formattedStartTime} ${providerDetailsData[4]["開始方式"]}`;
+               ttime.textContent = `${formattedCheckinTime}報到 / ${formattedStartTime}${providerDetailsData[4]["開始方式"]}`;
             }    
         
         //如果勾選不顯示，則不顯示時間文字，改以--代替
