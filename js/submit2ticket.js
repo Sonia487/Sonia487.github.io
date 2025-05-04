@@ -233,6 +233,53 @@ if (peopleCount_activities.length > 0) {
 
 } //submit2ticket 結束
 
+// 【自動改變票券顏色功能】
+// 顏色映射表
+const colorMapping = {
+    SouthSea: "#fcf98e",
+    EastSea: "#d5e8ff",
+    NorthSea: "#ffd9af",
+    SeaFarm: "#daffcb",
+    BBQ: "#fcc0e7",
+    SouthPH: "#b4fec4",
+    WaterActivity: "#abfff7",
+    CityMotor: "#d5feb0",
+    AirportMotor: "#aaeff8",
+    Other: "#deddff"
+    };
+  
+  // 取得 select 元素和表格元素
+  const categoryarea = document.getElementById("category");
+  const myTable = document.getElementById("myTable");
+  
+  // 綁定事件監聽器，當 select 的值改變時觸發
+  categoryarea.addEventListener("change", function () {
+    // 根據 select 的值獲取對應的顏色
+    const selectedValue = categoryarea.value;
+    const selectedColor = colorMapping[selectedValue] || "#fffaaf"; // 預設為白色
+    myTable.style.backgroundColor = selectedColor; 
+       
+  });
+
+// 【拖曳LOGO功能】
+// 取得圖片元素
+const logo = document.getElementById("logo");
+
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+// 通用的拖曳開始事件處理
+function startDrag(event) {
+  isDragging = true;
+  const clientX = event.type === "mousedown" ? event.clientX : event.touches[0].clientX;
+  const clientY = event.type === "mousedown" ? event.clientY : event.touches[0].clientY;
+
+  offsetX = clientX - logo.offsetLeft;
+  offsetY = clientY - logo.offsetTop;
+
+  logo.style.cursor = "grabbing";
+}
 
 // 通用的拖曳移動事件處理
 function dragMove(event) {
@@ -265,6 +312,3 @@ document.addEventListener("mouseup", stopDrag);
 logo.addEventListener("touchstart", startDrag);
 document.addEventListener("touchmove", dragMove);
 document.addEventListener("touchend", stopDrag);
-
-
-
