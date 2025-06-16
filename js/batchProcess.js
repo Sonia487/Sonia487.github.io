@@ -90,9 +90,8 @@ document.getElementById("batchGenerate").addEventListener("click", async () => {
     }
 
     function formatText(text) {
-        return text ? String(text).replace(/\r?\n/g, "<br>") : "";
+        return text ? text.replace(/\n/g, "<br>") : "";
     }
-    
 
     function getClientName(clientInfo) {
         if (!clientInfo) return `ticket_${Math.random().toString(36).substring(2, 9)}`;
