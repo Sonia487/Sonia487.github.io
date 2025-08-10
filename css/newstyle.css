@@ -269,7 +269,7 @@ textarea {
 }
 
 #side-buttons button {
-  min-width: 100px;  /* 最小寬度 */
+  min-width: 70px;  /* 最小寬度 */
   max-width: 140px;  /* 最大寬度 */
   padding: 8px 12px;
   font-size: 14px;
