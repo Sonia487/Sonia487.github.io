@@ -8,6 +8,7 @@ document.getElementById('run').addEventListener('click', function() {
     
     // ✅ 顯示右下角按鈕
     document.getElementById('floating-buttons').style.display = 'flex';
+    document.getElementById('side-buttons').style.display = 'none';
 });
 
 document.getElementById('close-form').addEventListener('click', function() {
@@ -17,6 +18,8 @@ document.getElementById('close-form').addEventListener('click', function() {
 
     // ✅ 隱藏右下角按鈕
     document.getElementById('floating-buttons').style.display = 'none';
+    document.getElementById('side-buttons').style.display = 'flex';
+
 });
 
 // 點擊背景關閉表單
@@ -29,6 +32,7 @@ document.getElementById('overlay').addEventListener('click', function(event) {
     
     // ✅ 隱藏右下角按鈕
     document.getElementById('floating-buttons').style.display = 'none';
+    document.getElementById('side-buttons').style.display = 'flex';
 });
 
 const templates = {
