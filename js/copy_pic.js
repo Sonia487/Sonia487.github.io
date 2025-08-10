@@ -154,6 +154,6 @@ document.getElementById('close-preview').addEventListener('click', () => {
   document.getElementById('preview-overlay').style.display = 'none';
 
     // ✅ 關閉預覽後恢復浮動按鈕 & 功能按鈕
-  document.getElementById('floating-buttons').style.display = 'flex';
+  document.getElementById('floating-buttons').style.display = 'none';
   document.getElementById('side-buttons').style.display = 'flex';
 });
