@@ -9,6 +9,8 @@ function isMobile() {
 // 行動裝置：顯示圖片供長按操作
 async function captureAndShowImage() {
   try {
+    const targetElement = document.getElementById("myTable"); // ← 每次重新抓
+    await new Promise(resolve => setTimeout(resolve, 100)); 
     const nodeWidth = targetElement.offsetWidth;
     const nodeHeight = targetElement.offsetHeight;
 
@@ -45,9 +47,27 @@ async function captureAndShowImage() {
   }
 }
 
+//提示訊息
+function showToast(message, duration = 3000) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.display = 'block';
+  setTimeout(() => {
+    toast.style.opacity = 1;
+  }, 10);
+
+  setTimeout(() => {
+    toast.style.opacity = 0;
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 500);
+  }, duration);
+}
+
 // 桌機：使用 Clipboard API 複製圖片
 async function captureAndCopyToClipboard() {
   try {
+    const targetElement = document.getElementById("myTable"); // ← 每次重新抓
     const nodeWidth = targetElement.offsetWidth;
     const nodeHeight = targetElement.offsetHeight;
 
@@ -65,7 +85,8 @@ async function captureAndCopyToClipboard() {
       },
       quality: 1,
     };
-
+    
+    await new Promise(resolve => requestAnimationFrame(resolve));
     const blob = await domtoimage.toBlob(targetElement, options);
 
     if (!navigator.clipboard || !window.ClipboardItem) {
@@ -75,9 +96,11 @@ async function captureAndCopyToClipboard() {
     const clipboardItem = new ClipboardItem({ 'image/png': blob });
     await navigator.clipboard.write([clipboardItem]);
     //alert('圖片已成功複製到剪貼簿！');
+    showToast('圖片已成功複製到剪貼簿！');
   } catch (error) {
     console.error('無法複製圖片到剪貼簿：', error);
-    alert('此瀏覽器不支援複製圖片功能');
+    //alert('此瀏覽器不支援複製圖片功能');
+    showToast('此瀏覽器不支援複製圖片功能');
   }
 }
 
