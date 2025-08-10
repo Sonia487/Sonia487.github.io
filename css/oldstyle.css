@@ -232,7 +232,7 @@ textarea {
 
 #side-buttons {
   position: fixed;
-  top: 50%;
+  top: 32%;
   right: 1%;
   transform: translateY(-50%);
   display: flex;
