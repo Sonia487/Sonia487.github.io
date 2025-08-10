@@ -15,8 +15,8 @@ document.getElementById('close-form').addEventListener('click', function() {
     document.getElementById('form-container').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
 
-    // ✅ 顯示右下角按鈕
-    document.getElementById('floating-buttons').style.display = 'flex';
+    // ✅ 隱藏右下角按鈕
+    document.getElementById('floating-buttons').style.display = 'none';
 });
 
 // 點擊背景關閉表單
