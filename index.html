@@ -1,216 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<title>E-ticket</title>
-	<!--Local加入CSS檔案，注意路徑寫法-->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link id="theme-style" rel="stylesheet" href="css/newstyle.css">
-	<link rel="stylesheet" href="css/style-toggle.css">
-	<!--Local加入JS檔案，注意路徑寫法-->
-	<script defer src="js/javascript.js"></script>
-	<script defer src="js/html2canvas.js"></script>
-    <script defer src="js/dropdownmenu.js"></script>
-    <script defer src="js/submit.js"></script>
-    <script defer src="js/submit2ticket.js"></script>
-    <script defer type="module" src="js/copy_pic.js"></script>
-    <script defer src="js/dom-to-image.js"></script>
-    <script defer src="js/share_pic.js"></script>
-    <!--解析excel的工具-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script defer type="module" src="js/batchProcess.js"></script>
+  <meta charset="UTF-8">
+  <title>澎美免稅卡</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-	
-	<div class="container px-4 bg-light">
-	<!--大標題 container網格容器 排版用包含(px,gx,p,col...)/-->
-		<h1 class="p-3 mb-2 bg-primary text-white text-center">澎湖之美旅行社</h1>
+  <h2>澎美免稅卡</h2>
 
-	<figure class="text-center">
-  <blockquote class="blockquote">
-    <p>票券生產器網頁版</p>
-  </blockquote>
-  <figcaption class="blockquote">
-  	<!-- 觸發彈出視窗，讓人可以輸入票券資料的按鈕，ID是run-->
-    <button class="btn btn-lg btn-danger fw-bold" id="run">點這粒開始製作</button>
-  </figcaption>
-</figure>
-
-  <div class="controls">
-    <label class="toggle-wrapper">
-      <input type="checkbox" id="styleToggle">
-      <span class="toggle-slider"></span>
-    </label>
-    <span id="styleLabel">新版樣式</span>
+  <!-- 懸浮控制板 -->
+  <div id="controlPanel" class="open">
+    <div id="panelHeader" onclick="togglePanel()">⚙️ 控制板</div>
+    <div id="panelContent">
+      <textarea id="userText" placeholder="輸入文字 (可換行)"></textarea>
+      <label>
+        字體大小
+        <input type="range" id="fontSize" min="20" max="80" value="40">
+      </label>
+      <label>
+        文字顏色
+        <input type="color" id="fontColor" value="#ff0000">
+      </label>
+      <button onclick="downloadImage()">下載圖片</button>
+      <button onclick="copyToClipboard()">複製圖片</button>
+    </div>
   </div>
 
-  <div id="ticket-area"></div>
-  
-        <!-- 功能按鈕浮動在右側 -->
-        <div id="side-buttons">
-            <button class="btn btn-primary" id="copy_pic">複製</button>
-            <button class="btn btn-primary" id="download_pic">下載</button>
-            <button class="btn btn-primary" id="share_pic">分享</button>
-        </div>
+  <!-- 畫布 -->
+  <canvas id="myCanvas" width="482" height="1125"></canvas>
 
- <!--    <div class="container px-6 text-center " style="width: 400px;">
-  		<div class="row justify-content-center gx-6">
-    		<div class="col">
-    			<div class="p-2">
-      			<button type="button" class="btn btn-primary" id="copy_pic">複製圖片</button>
-      		</div>
-    		</div>
-    		<div class="col">
-    			<div class="p-2">
-      			<button type="button" class="btn btn-primary" id="download_pic">下載圖片</button>
-      		</div>
-    		</div>
-    		<div class="col">
-    			<div class="p-2">
-      			<button type="button" class="btn btn-primary" id="share_pic">分享到~</button>
-      		</div>
-    		</div>
-  		</div>
-  		</div>
--->	
-  		<div class="container px-6 text-center " style="width: 400px;">
-  		<div class="row justify-content-center gx-6">
-    		<div class="col">
-    			<div class="p-2">
-      			<button type="button" class="btn btn-primary">歷史資料</button>
-      			</div>
-    		</div>
-    		<div class="col">
-    			<div class="p-2">
-      			<button type="button" class="btn btn-primary" id="batchGenerate">批量製作</br>(先選檔案)</button>
-      			</div>
-    		</div>
-    		<div class="col">
-    			<div class="">
-                <input type="file" id="excelUpload" accept=".xlsx, .xls, .xlsm" class="w-100">
-            </div>
-    		</div>
-  		</div>
-  		</div>
-
-  	</div>	
-
-    <!-- ✅ 圖片預覽浮層，初始隱藏 -->
-    <div id="preview-overlay" style="display: none;">
-    <div id="preview-modal">
-        <button id="close-preview" aria-label="關閉預覽">X</button>
-        <div id="preview-content">
-        <!-- 圖片會插入這裡 -->
-        </div>
-    </div>
-    </div>
-
-	<!-- 暗化背景，ID是overlay-->
-	<div id="overlay"></div>
-
-  <!-- Toast 通知 -->
-  <div id="toast" style="opacity: 0;">提示訊息</div>
-
-	 <!-- 隱藏的表單 -->
-	 <div id="form-container" class="form-container container-fluid gx-6">
-        <form id="data-form">
-            <table>
-                <tr>
-                    <td class="title">日期</td>
-                    <td><input type="date" id="date" required></td>
-                </tr>
-                <tr>
-                    <td class="title">類別</td>
-                    <td>
-                        <select id="category" name="category" required>
-                            <option value="">請選擇</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">業者</td>
-                    <td>
-                        <select id="provider" name="provider" required>
-                            <option value="">請選擇</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">行程</td>
-                    <td>
-                        <select id="tour" name="tour" required>
-                            <option value="">請選擇</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">開始時間</td>
-                    <td>
-                        <div class="inline-inputs">
-                            <input type="number" id="start-hour" min="0" max="23" placeholder="時"> :
-                            <input type="number" id="start-minute" min="0" max="59" placeholder="分">
-                            <input type="checkbox" id="wait-info">出發前一天通知
-                            <input type="checkbox" id="no-show">不顯示
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">報到時間</td>
-                    <td><input type="number" id="checkin-time" min="0" placeholder="分鐘 / 時間有一格沒輸入就不會顯示"></td>
-                </tr>
-                <tr>
-                    <td class="title">團號</td>
-                    <td><input type="text" id="group-number" placeholder="非必要"></td>
-                </tr>
-                <tr>
-                    <td class="title">旅客</td>
-                    <td><input type="text" id="name-phone" placeholder="姓名+電話 (必填)" required></td>
-                </tr>
-                <tr>
-                    <td class="title">人數</td>
-                    <td>
-                        <div class="inline-inputs">
-                            <input type="number" id="adults" placeholder="大人" min="0">
-                            <input type="number" id="children" placeholder="小孩" min="0">
-                            <input type="number" id="infants" placeholder="抱" min="0">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">活動</td>
-                    <td>
-                        <div class="inline-inputs">
-                            <input type="number" id="snorkel" placeholder="浮潛" min="0">
-                            <input type="number" id="canoe" placeholder="獨木舟" min="0">
-                            <input type="number" id="freestyle" placeholder="自由行" min="0">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">交通</td>
-                    <td>
-                        <div class="inline-inputs">
-                            <input type="number" id="motorbike" placeholder="機車" min="0">
-                            <input type="number" id="bus" placeholder="巴士" min="0">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="title">備註</td>
-                    <td><textarea id="notes" rows="4" cols="50"></textarea></td>
-                </tr>
-            </table>
-        </form>
-		<!-- 按鈕從表單中移除，改為固定在畫面右下 -->
-    </div>
-    <!-- 固定在畫面右下的提交 + 關閉按鈕 -->
-    <div id="floating-buttons">
-        <button class="btn btn-success" onclick="submit2ticket()">提交</button>
-        <button class="btn btn-secondary" id="close-form">關閉</button>
-    </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
