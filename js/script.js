@@ -98,18 +98,59 @@ function downloadImage() {
 
 // === 複製到剪貼簿 ===
 async function copyToClipboard() {
-  try {
-    const blob = await new Promise(resolve =>
-      canvas.toBlob(resolve, "image/png")
-    );
-    await navigator.clipboard.write([
-      new ClipboardItem({ "image/png": blob })
-    ]);
-    alert("已複製到剪貼簿 ✅");
-  } catch (err) {
-    alert("此瀏覽器不支援直接複製，請長按圖片另存。");
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  const blob = await new Promise(resolve =>
+    canvas.toBlob(resolve, "image/png")
+  );
+
+  if (isIOS) {
+    // iOS 不支援複製圖片 → 顯示可長按的 <img>
+    const imgURL = URL.createObjectURL(blob);
+
+    let preview = document.getElementById("iosPreview");
+    if (!preview) {
+      preview = document.createElement("div");
+      preview.id = "iosPreview";
+      preview.style.position = "fixed";
+      preview.style.top = "0";
+      preview.style.left = "0";
+      preview.style.width = "100%";
+      preview.style.height = "100%";
+      preview.style.background = "rgba(0,0,0,0.8)";
+      preview.style.display = "flex";
+      preview.style.alignItems = "center";
+      preview.style.justifyContent = "center";
+      preview.style.zIndex = "9999";
+      preview.innerHTML = `
+        <div style="text-align:center; color:white">
+          <p>📌 長按圖片即可存圖/複製</p>
+          <img src="${imgURL}" style="max-width:90%; border:3px solid white; border-radius:10px">
+          <br>
+          <button onclick="document.getElementById('iosPreview').remove()" 
+            style="margin-top:10px; padding:8px 16px; border:none; border-radius:8px; background:#fff; color:#000;">
+            關閉
+          </button>
+        </div>
+      `;
+      document.body.appendChild(preview);
+    } else {
+      preview.querySelector("img").src = imgURL;
+      preview.style.display = "flex";
+    }
+  } else {
+    try {
+      await navigator.clipboard.write([
+        new ClipboardItem({ "image/png": blob })
+      ]);
+      alert("圖片已複製到剪貼簿 ✅");
+    } catch (err) {
+      console.error(err);
+      alert("複製失敗，請改用下載或長按圖片存檔");
+    }
   }
 }
+
 
 // === 控制板收合 ===
 function togglePanel() {
